@@ -48,6 +48,7 @@ class Login extends React.Component {
         Bert.alert(error.reason, 'danger');
       } else {
         Bert.alert('Welcome back!', 'success');
+        history.push('/leaderboard');
       }
     });
   }
@@ -57,17 +58,6 @@ class Login extends React.Component {
       <Row>
         <Col xs={12} sm={6} md={5} lg={4}>
           <h4 className="page-header">Log In</h4>
-          <Row>
-            <Col xs={12}>
-              <OAuthLoginButtons
-                services={['facebook', 'github', 'google']}
-                emailMessage={{
-                  offset: 100,
-                  text: 'Log In with an Email Address',
-                }}
-              />
-            </Col>
-          </Row>
           <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
             <FormGroup>
               <ControlLabel>Email Address</ControlLabel>
@@ -91,9 +81,6 @@ class Login extends React.Component {
               />
             </FormGroup>
             <Button type="submit" bsStyle="success">Log In</Button>
-            <AccountPageFooter>
-              <p>{'Don\'t have an account?'} <Link to="/signup">Sign Up</Link>.</p>
-            </AccountPageFooter>
           </form>
         </Col>
       </Row>
