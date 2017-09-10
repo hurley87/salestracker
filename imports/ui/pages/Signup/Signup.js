@@ -31,6 +31,9 @@ class Signup extends React.Component {
           required: true,
           email: true,
         },
+        id: {
+          required: true
+        },
         password: {
           required: true,
           minlength: 6,
@@ -42,6 +45,9 @@ class Signup extends React.Component {
         },
         lastName: {
           required: 'What\'s your last name?',
+        },
+        id: {
+          required: 'What\'s your pipedrive id'
         },
         emailAddress: {
           required: 'Need an email address here.',
@@ -58,7 +64,6 @@ class Signup extends React.Component {
 
   handleSubmit() {
     const { history } = this.props;
-
     Accounts.createUser({
       email: this.emailAddress.value,
       password: this.password.value,
@@ -67,6 +72,7 @@ class Signup extends React.Component {
           first: this.firstName.value,
           last: this.lastName.value,
         },
+        id: this.id.value
       },
     }, (error) => {
       if (error) {
@@ -74,7 +80,7 @@ class Signup extends React.Component {
       } else {
         Meteor.call('users.sendVerificationEmail');
         Bert.alert('Welcome!', 'success');
-        history.push('/leaderboard');
+        history.push('/today');
       }
     });
   }
@@ -84,19 +90,6 @@ class Signup extends React.Component {
       <Row>
         <Col xs={12} sm={6} md={5} lg={4}>
           <h4 className="page-header">Sign Up</h4>
-          {        
-            // <Row>
-            //   <Col xs={12}>
-            //     <OAuthLoginButtons
-            //       services={['facebook', 'github', 'google']}
-            //       emailMessage={{
-            //         offset: 97,
-            //         text: 'Sign Up with an Email Address',
-            //       }}
-            //     />
-            //   </Col>
-            // </Row>
-          }
           <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
             <Row>
               <Col xs={6}>
@@ -122,6 +115,15 @@ class Signup extends React.Component {
                 </FormGroup>
               </Col>
             </Row>
+            <FormGroup>
+              <ControlLabel>Id</ControlLabel>
+              <input
+                type="text"
+                name="id"
+                ref={id => (this.id = id)}
+                className="form-control"
+              />
+            </FormGroup>
             <FormGroup>
               <ControlLabel>Email Address</ControlLabel>
               <input

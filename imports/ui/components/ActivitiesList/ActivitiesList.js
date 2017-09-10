@@ -6,7 +6,6 @@ import { Meteor } from 'meteor/meteor';
 const ActivitiesList = ({ activities }) => (
   activities.length > 0 ? 
   <div>
-  	<h4>{activities.length} activities were completed</h4>
 	<ListGroup className="DocumentsList">
 	    {activities.reverse().slice(0, 100).map((activity, i) => (
 	      <ListGroupItem key={ i } >
@@ -15,7 +14,7 @@ const ActivitiesList = ({ activities }) => (
 	    ))}
 	</ListGroup>
   </div> :
-  <Alert bsStyle="warning">No activities yet today.</Alert>
+  <Alert bsStyle="warning">No activities yet.</Alert>
 );
 
 

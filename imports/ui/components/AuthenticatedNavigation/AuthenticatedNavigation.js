@@ -7,18 +7,16 @@ import { Meteor } from 'meteor/meteor';
 
 const AuthenticatedNavigation = ({ name, history }) => (
   <div>
-    <Nav>
-      <LinkContainer to="/leaderboard">
-        <NavItem eventKey={1} href="/leaderboard">Leaderboard</NavItem>
-      </LinkContainer>
-    </Nav>
     <Nav pullRight>
       <NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
-        <LinkContainer to="/profile">
-          <NavItem eventKey={2.1} href="/profile">Change Password</NavItem>
+        <LinkContainer to={"/users/" + Meteor.user().profile.id }>
+          <NavItem eventKey={2.0} href={"/users/" + Meteor.user().profile.id }>Profile</NavItem>
+        </LinkContainer>
+        <LinkContainer to="/settings">
+          <NavItem eventKey={2.2} href="/settings">Settings</NavItem>
         </LinkContainer>
         <MenuItem divider />
-        <MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>Logout</MenuItem>
+        <MenuItem eventKey={2.3} onClick={() => history.push('/logout')}>Logout</MenuItem>
       </NavDropdown>
     </Nav>
   </div>

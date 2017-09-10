@@ -10,42 +10,32 @@ import RepsList from '../../components/RepsList/RepsList';
 import Loading from '../../components/Loading/Loading';
 import _ from 'lodash';
 
-const Leaderboard = ({ activities, repsStats, loading, match, history }) => ( !loading ? (
+const All = ({ activities, repsStats, loading, match, history }) => ( !loading ? (
   activities.length > 0 ? 
   <div>
-  	<p><Link to="/all">All Time</Link></p>
+  	<p><Link to="/today">Today</Link></p>
   	<RepsList repsStats={repsStats}/>
   	<ActivitiesList activities={activities}/>
   </div> :
-  <div>
-  	<p><Link to="/all">All Time</Link></p>
-  	<Alert bsStyle="warning">No activities to show.</Alert>
-  </div>
+  <Alert bsStyle="warning">No activities to show.</Alert>
 ): <Loading />);
 
 
-Leaderboard.propTypes = {
+All.propTypes = {
   activities: PropTypes.array,
 };
 
 export default createContainer(() => {
 
-	var dateObj = new Date();
-	dateObj.setHours(dateObj.getHours() - 4);
-	var month = dateObj.getUTCMonth() + 1;
-	var day = dateObj.getUTCDate();
-	var year = dateObj.getUTCFullYear();
-
-	if(month.toString().length == 1){ month = '0' + month }
-	if(day.toString().length == 1){ day = '0' + day }
-
-	let today = year + "-" + month + '-' + day
-
-	const subscription = Meteor.subscribe('activities.list', today);
+	const subscription = Meteor.subscribe('activities.list', '');
 
 	let activities = Activities.find().fetch();
 
+	console.log(activities[0])
+
 	const reps = _.mapValues(_.groupBy(activities, 'current.owner_name'))
+
+	console.log(reps)
 
 	activities.map((act) =>{
 		let note = act.current.note
@@ -55,8 +45,6 @@ export default createContainer(() => {
 		act.current['add_date'] = act.current.add_time.split(" ")[0]
 		act.current['minutes'] = minutes
 	})
-
-	const actsByDay = _.mapValues(_.groupBy(activities, 'current.add_date'))
 
 	let names = []
 	for(var k in reps) names.push(k)
@@ -108,4 +96,4 @@ export default createContainer(() => {
 		repsStats:repsStats, 
 		loading:loading
 	}
-}, Leaderboard);
+}, All);

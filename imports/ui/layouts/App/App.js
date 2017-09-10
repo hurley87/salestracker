@@ -15,11 +15,13 @@ import Index from '../../pages/Index/Index';
 import Documents from '../../pages/Documents/Documents';
 import NewDocument from '../../pages/NewDocument/NewDocument';
 import ViewDocument from '../../pages/ViewDocument/ViewDocument';
+import ViewUser from '../../pages/ViewUser/ViewUser';
 import EditDocument from '../../pages/EditDocument/EditDocument';
 import Signup from '../../pages/Signup/Signup';
 import Login from '../../pages/Login/Login';
 import Logout from '../../pages/Logout/Logout';
 import Leaderboard from '../../pages/Leaderboard/Leaderboard';
+import All from '../../pages/All/All';
 import VerifyEmail from '../../pages/VerifyEmail/VerifyEmail';
 import RecoverPassword from '../../pages/RecoverPassword/RecoverPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
@@ -29,6 +31,7 @@ import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
+import Settings from '../../pages/Settings/Settings';
 
 import './App.scss';
 
@@ -55,8 +58,11 @@ const App = props => (
           <Authenticated exact path="/documents" component={Documents} {...props} />
           <Authenticated exact path="/documents/new" component={NewDocument} {...props} />
           <Authenticated exact path="/documents/:_id" component={ViewDocument} {...props} />
+          <Authenticated exact path="/users/:_id" component={ViewUser} {...props} />
           <Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...props} />
-          <Authenticated exact path="/leaderboard" component={Leaderboard} {...props} />
+          <Authenticated exact path="/today" component={Leaderboard} {...props} />
+          <Authenticated exact path="/all" component={All} {...props} />
+          <Authenticated exact path="/settings" component={Settings} {...props} />
           <Authenticated exact path="/profile" component={Profile} {...props} />
           <Public path="/signup" component={Signup} {...props} />
           <Public path="/login" component={Login} {...props} />

@@ -12,9 +12,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import InputHint from '../../components/InputHint/InputHint';
 import validate from '../../../modules/validate';
 
-import './Profile.scss';
 
-class Profile extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props);
 
@@ -144,7 +143,7 @@ class Profile extends React.Component {
   }
 }
 
-Profile.propTypes = {
+Settings.propTypes = {
   loading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
@@ -156,4 +155,4 @@ export default createContainer(() => {
     loading: !subscription.ready(),
     user: Meteor.user(),
   };
-}, Profile);
+}, Settings);
