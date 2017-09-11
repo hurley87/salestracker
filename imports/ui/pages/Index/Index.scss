@@ -3,13 +3,13 @@
 
 .Index {
   padding: 20px;
-  background: #16a55a;
+  background: #fff;
   text-align: center;
   border-radius: 3px;
   color: #fff;
 
   img {
-    width: 300px;
+    width: 200px;
     height: auto;
   }
 
@@ -31,7 +31,17 @@
     }
 
     .btn {
+      background: #16a55a;
+      color: #fff;
+      font-size: 18px;
+      border-radius: 50px;
+      padding: 11px 28px;
+      display: inline-block;
+      vertical-align: top;
       border: none;
+      box-shadow: none;
+      transition: all 250ms ease;
+      -webkit-transition: all 250ms ease;
     }
   }
 

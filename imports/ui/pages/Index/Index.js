@@ -9,7 +9,7 @@ const Index = () => (
       src="https://surveygizmolibrary.s3.amazonaws.com/library/455879/futureofwork.png"
       alt="Clever Beagle"
     />
-    <h1>SalesTracker</h1>
+    <h4>SalesTracker</h4>
     <div>
       <Button href="/login">Login</Button>
     </div>
