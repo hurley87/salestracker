@@ -13,7 +13,6 @@ import _ from 'lodash';
 const Leaderboard = ({ activities, repsStats, loading, match, history }) => ( !loading ? (
   activities.length > 0 ? 
   <div>
-  	<p><Link to="/all">All Time</Link></p>
   	<RepsList repsStats={repsStats}/>
   	<ActivitiesList activities={activities}/>
   </div> :
