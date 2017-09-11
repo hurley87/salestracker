@@ -67,7 +67,7 @@ export default createContainer(() => {
 		repActs = reps[name]
 
 		connectionCount = repActs.filter((act) => { return act.current.note.length > 10 }).length;
-		bookedCount = repActs.filter((act) => { return act.current.type == 'planpro_phone_appt' }).length;
+		bookedCount = repActs.filter((act) => { return act.current.type == 'planpro_phone_appt' || act.current.type == 'planpro_in_person_appt' }).length;
 		heldCount = repActs.filter((act) => { return act.current.minutes >= 15 }).length;
 		timeOnPhone = _.reduce(repActs, function(sum, act){ return sum + act.current.minutes }, 0)
 		score = connectionCount + 5*bookedCount + 10*heldCount + timeOnPhone

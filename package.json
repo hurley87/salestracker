@@ -8,6 +8,7 @@
   "dependencies": {
     "@cleverbeagle/dates": "^0.5.1",
     "@cleverbeagle/seeder": "^1.2.0",
+    "amplitude": "^3.5.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "commonmark": "^0.28.1",
