@@ -107,6 +107,7 @@ export default createContainer(({ match }) => {
 		time.setHours(time.getHours() - 4);
 		time = time.toString().split(" ")[4]
 		return {
+			deal_id: activity.current.deal_id,
 	    	name: activity.current.owner_name,
 	    	type: activity.current.type,
 	    	note: activity.current.note,

@@ -9,7 +9,6 @@ Meteor.publish('activities.list', function activitiesList(date) {
 
 Meteor.publish('activities.user', function activitiesList(userId) {
   check(userId, String);
-  console.log(userId)
   return Activities.find({ 
   	"current.created_by_user_id" : parseInt(userId),
   	$where: 'this.current.note.length > 100',

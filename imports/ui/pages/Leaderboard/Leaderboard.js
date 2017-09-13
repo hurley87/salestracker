@@ -90,7 +90,6 @@ export default createContainer(() => {
 		let time = new Date(activity.current.add_time)
 		time.setHours(time.getHours() - 4);
 		time = time.toString().split(" ")[4]
-		console.log(activity)
 		return {
 			deal_id: activity.current.deal_id,
 	    	name: activity.current.owner_name,

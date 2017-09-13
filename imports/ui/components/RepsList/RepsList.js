@@ -18,7 +18,7 @@ const RepsList = ({ repsStats }) => (
 	      </tr>
 	    </thead>
 	    <tbody>
-		    {repsStats.reverse().slice(0, 5).map((rep, i) => (
+		    {repsStats.reverse().slice(0, 9).map((rep, i) => (
 		      <tr key={ i } >
 		        <td>{i + 1}</td>
 		        <td>{rep.name}</td>
