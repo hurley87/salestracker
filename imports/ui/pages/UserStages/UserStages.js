@@ -39,16 +39,17 @@ export default createContainer(({ user, match, history }) => {
   const subscription = Meteor.subscribe('stages.list');
   let stats = {}
   const name = user.profile.name.first + " " + user.profile.name.last
-  console.log(name)
+
   if(subscription.ready()){
 	  let stages = Stages.find().fetch();
-	  console.log(stages)
+
 		function add(a, b) {
 		  return a + b;
 		}
 
 
 		repStages = stages[stages.length - 1].stats
+		console.log(repStages)
 		const funnel = repStages[name]
 
 

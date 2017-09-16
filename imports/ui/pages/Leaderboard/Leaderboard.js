@@ -107,7 +107,7 @@ export default createContainer(() => {
 
 		name = names[i]
 		repActs = reps[name]
-		id = repActs[0].current.user_id
+		id = repActs[0].current.created_by_user_id
 		connectionCount = repActs.filter((act) => { return act.current.note.length > 10 }).length;
 		bookedCount = repActs.filter((act) => { return act.current.type == 'planpro_phone_appt' || act.current.type == 'planpro_in_person_appt' }).length;
 		heldCount = repActs.filter((act) => { return act.current.minutes >= 10 }).length;
