@@ -10,9 +10,35 @@ import RepsList from '../../components/RepsList/RepsList';
 import Loading from '../../components/Loading/Loading';
 import _ from 'lodash';
 
-const Leaderboard = ({ activities, repsStats, loading, match, history }) => ( !loading ? (
+const Leaderboard = ({ activities, repsStats, overall, today, loading, match, history }) => ( !loading ? (
   activities.length > 0 ? 
   <div>
+  	<Row>
+  		<Col xs={2}>
+  			<h4>{today}</h4>
+  			<p>TODO: add date picker here</p>
+  		</Col>
+  		<Col xs={2}>
+  			<h4>Dials</h4>
+  			<p>{overall.connectionCount}</p>
+  		</Col>
+  		<Col xs={2}>
+  			<h4>Booked</h4>
+  			<p>{overall.bookedCount}</p>
+  		</Col>
+  		<Col xs={2}>
+  			<h4>Held</h4>
+  			<p>{overall.heldCount}</p>
+  		</Col>
+  		<Col xs={2}>
+  			<h4>Time</h4>
+  			<p>{overall.timeOnPhone}</p>
+  		</Col>
+  		<Col xs={2}>
+  			<h4>Points</h4>
+  			<p>{overall.score}</p>
+  		</Col>
+  	</Row>
   	<RepsList repsStats={repsStats}/>
   	<ActivitiesList activities={activities}/>
   </div> :
@@ -55,6 +81,22 @@ export default createContainer(() => {
 		act.current['minutes'] = minutes
 	})
 
+	connectionCount = activities.filter((act) => { return act.current.note.length > 10 }).length;
+	bookedCount = activities.filter((act) => { return act.current.type == 'planpro_phone_appt' || act.current.type == 'planpro_in_person_appt' }).length;
+	heldCount = activities.filter((act) => { return act.current.minutes >= 10 }).length;
+	timeOnPhone = _.reduce(activities, function(sum, act){ return sum + act.current.minutes }, 0)
+	score = connectionCount + 5*bookedCount + 10*heldCount + timeOnPhone
+
+	overall = {
+		connectionCount: connectionCount,
+		bookedCount: bookedCount,
+		heldCount: heldCount,
+		timeOnPhone: timeOnPhone,
+		score: score
+	}
+
+	activities
+
 	const actsByDay = _.mapValues(_.groupBy(activities, 'current.add_date'))
 
 	let names = []
@@ -65,12 +107,12 @@ export default createContainer(() => {
 
 		name = names[i]
 		repActs = reps[name]
-
+		id = repActs[0].current.user_id
 		connectionCount = repActs.filter((act) => { return act.current.note.length > 10 }).length;
 		bookedCount = repActs.filter((act) => { return act.current.type == 'planpro_phone_appt' || act.current.type == 'planpro_in_person_appt' }).length;
-		heldCount = repActs.filter((act) => { return act.current.minutes >= 15 }).length;
+		heldCount = repActs.filter((act) => { return act.current.minutes >= 10 }).length;
 		timeOnPhone = _.reduce(repActs, function(sum, act){ return sum + act.current.minutes }, 0)
-		score = connectionCount + 5*bookedCount + 10*heldCount + timeOnPhone
+		score = connectionCount + 5 *bookedCount + 10*heldCount + timeOnPhone
 
 		let repStats = {
 			name: names[i],
@@ -78,7 +120,8 @@ export default createContainer(() => {
 			bookedCount: bookedCount,
 			heldCount: heldCount,
 			timeOnPhone: timeOnPhone,
-			score: score
+			score: score,
+			id: id
 		}
 
 		repsStats.push(repStats)
@@ -90,15 +133,27 @@ export default createContainer(() => {
 		let time = new Date(activity.current.add_time)
 		time.setHours(time.getHours() - 4);
 		time = time.toString().split(" ")[4]
+
+		let note = ''
+		let newNote = activity.current.note.split('. ')
+		if(newNote.length == 3) {
+			note = newNote[0] + ' ' + newNote[1]
+		} else {
+			note = newNote[0]
+		}
+
 		return {
 			deal_id: activity.current.deal_id,
 	    	name: activity.current.owner_name,
 	    	type: activity.current.type,
-	    	note: activity.current.note,
+	    	note: note,
 	    	time: time
 		}
 	}).filter((act, i) =>{
-		return !(act.type == 'call_made' && act.note.length == 0)
+		return !((act.type == 'call_made' && act.note.length == 0) || 
+			act.type == 'email' ||
+			act.note.includes('Missed')
+			)
 	})
 
 	loading = !subscription.ready()
@@ -106,6 +161,8 @@ export default createContainer(() => {
 	return { 
 		activities:activities, 
 		repsStats:repsStats, 
-		loading:loading
+		loading:loading,
+		overall: overall,
+		today: today
 	}
 }, Leaderboard);

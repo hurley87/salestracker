@@ -13,6 +13,6 @@ Meteor.publish('users.editProfile', function usersProfile() {
 
 Meteor.publish('users.view', function usersView(userId) {
 	check(userId, String)
-	return Meteor.users.find({'profile.id': userId});
+	return Meteor.users.find({'profile.id': userId}, { fields: { 'profile': 1 }});
 });2
 

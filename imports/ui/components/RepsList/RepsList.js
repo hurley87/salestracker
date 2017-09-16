@@ -18,10 +18,10 @@ const RepsList = ({ repsStats }) => (
 	      </tr>
 	    </thead>
 	    <tbody>
-		    {repsStats.reverse().slice(0, 9).map((rep, i) => (
+		    {repsStats.reverse().slice(0, 10).map((rep, i) => (
 		      <tr key={ i } >
 		        <td>{i + 1}</td>
-		        <td>{rep.name}</td>
+		        <td><a href={"/users/" + rep.id}>{rep.name}</a></td>
 		        <td>{rep.connectionCount}</td>
 		        <td>{rep.bookedCount}</td>
 		        <td>{rep.heldCount}</td>

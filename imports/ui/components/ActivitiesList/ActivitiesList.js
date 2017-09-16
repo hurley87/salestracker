@@ -9,7 +9,7 @@ const ActivitiesList = ({ activities }) => (
 	<ListGroup className="DocumentsList">
 	    {activities.reverse().slice(0, 100).map((activity, i) => (
 	      <ListGroupItem key={ i } >
-	        <span className='pull-right'>{activity.time}</span> { activity.name } ({ activity.deal_id }) - { activity.type  } <span dangerouslySetInnerHTML={{ __html: activity.note }} />
+	        <span className='pull-right'>{activity.time}</span> { activity.name } <a target='_blank' href={ "https://planswell.pipedrive.com/deal/" + activity.deal_id }>{ activity.type  }</a> <span dangerouslySetInnerHTML={{ __html: activity.note }} />
 	      </ListGroupItem>
 	    ))}
 	</ListGroup>
